@@ -1,0 +1,24 @@
+name: acinoset
+channels:
+  - defaults
+  - conda-forge
+  - pytorch
+dependencies:
+  - pip
+  - tqdm
+  - ipopt # version 3.11.1 is required for windows!
+  - numpy
+  - scipy
+  - sympy
+  - opencv
+  - pandas
+  - pyopengl
+  - jupyterlab
+  - matplotlib
+  - python=3.7.9
+  - pyqtgraph=0.11.0
+  - pip:
+    - pyomo
+    - pyqt5
+    - tables
+    - nptyping==0.3.1

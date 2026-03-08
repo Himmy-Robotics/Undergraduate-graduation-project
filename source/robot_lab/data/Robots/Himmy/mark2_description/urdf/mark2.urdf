@@ -1,0 +1,2083 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="mark2">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.015978 4.516E-10 -4.6746E-05"
+        rpy="0 0 0" />
+      <mass
+        value="2.0060794" />
+      <inertia
+        ixx="0.0179488"
+        ixy="0"
+        ixz="-0.0000005"
+        iyy="0.0063395"
+        iyz="0"
+        izz="0.0169952" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="FL_hip_rotor_Link">
+    <inertial>
+      <origin
+        xyz="0.014123 0.2 1.448E-13"
+        rpy="0 0 0" />
+      <mass
+        value="0.60500" />
+      <inertia
+        ixx="0.0005131"
+        ixy="0"
+        ixz="0"
+        iyy="0.0003104"
+        iyz="0"
+        izz="0.0003100" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FL_hip_rotor_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FL_hip_rotor_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FL_hip_rotor_joint"
+    type="fixed">
+    <origin
+      xyz="0.043225 -0.1 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="FL_hip_rotor_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="FL_hip_Link">
+    <inertial>
+      <origin
+        xyz="0.061167 0.0065148 -6.9838E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.2285870" />
+      <inertia
+        ixx="0.0002040"
+        ixy="-0.0000329"
+        ixz="-0.0000064"
+        iyy="0.0003411"
+        iyz="0"
+        izz="0.0002115" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FL_hip_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FL_hip_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FL_hip_joint"
+    type="revolute">
+    <origin
+      xyz="0 0.2 6.9839E-05"
+      rpy="0 0 0" />
+    <parent
+      link="FL_hip_rotor_Link" />
+    <child
+      link="FL_hip_Link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-1.5"
+      upper="1.5"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="FL_thigh_rotor_Link">
+    <inertial>
+      <origin
+        xyz="1.415E-13 0.014123 5.8181E-12"
+        rpy="0 0 0" />
+      <mass
+        value="0.6050000" />
+      <inertia
+        ixx="0.0003100"
+        ixy="0"
+        ixz="0"
+        iyy="0.0005131"
+        iyz="0"
+        izz="0.0003104" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FL_thigh_rotor_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FL_thigh_rotor_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FL_thigh_rotor_joint"
+    type="fixed">
+    <origin
+      xyz="0.083275 -0.019775 -6.9839E-05"
+      rpy="0 0 0" />
+    <parent
+      link="FL_hip_Link" />
+    <child
+      link="FL_thigh_rotor_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="FL_thigh_Link">
+    <inertial>
+      <origin
+        xyz="-0.0092138 -0.0018694 -0.078771"
+        rpy="0 0 0" />
+      <mass
+        value="0.7853888" />
+      <inertia
+        ixx="0.0060382"
+        ixy="-0.0000005"
+        ixz="-0.0003689"
+        iyy="0.0063486"
+        iyz="0.0000066"
+        izz="0.0005987" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FL_thigh_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FL_thigh_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FL_thigh_joint"
+    type="revolute">
+    <origin
+      xyz="0.083275 0.07955 -6.9839E-05"
+      rpy="0 0 0" />
+    <parent
+      link="FL_hip_Link" />
+    <child
+      link="FL_thigh_Link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2"
+      upper="2.2"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="FL_calf_rotor_Link">
+    <inertial>
+      <origin
+        xyz="1.4116E-13 0.071173 -2.3616E-11"
+        rpy="0 0 0" />
+      <mass
+        value="0.6050000" />
+      <inertia
+        ixx="0.0003104"
+        ixy="0"
+        ixz="0.0000001"
+        iyy="0.0005131"
+        iyz="0"
+        izz="0.0003100" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FL_calf_rotor_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FL_calf_rotor_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FL_calf_rotor_joint"
+    type="fixed">
+    <origin
+      xyz="0 -0.0993250000007549 0"
+      rpy="0 0 0" />
+    <parent
+      link="FL_thigh_Link" />
+    <child
+      link="FL_calf_rotor_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="FL_calf_Link">
+    <inertial>
+      <origin
+        xyz="0.016698 8.0234E-07 -0.10593"
+        rpy="0 0 0" />
+      <mass
+        value="0.2649304" />
+      <inertia
+        ixx="0.0019828"
+        ixy="0"
+        ixz="0.0001758"
+        iyy="0.0020169"
+        iyz="0"
+        izz="0.0000508" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FL_calf_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FL_calf_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FL_calf_joint"
+    type="revolute">
+    <origin
+      xyz="0 -0.002 -0.23"
+      rpy="0 0 0" />
+    <parent
+      link="FL_thigh_Link" />
+    <child
+      link="FL_calf_Link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2.2"
+      upper="-0.7"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="FL_foot_Link">
+    <inertial>
+      <origin
+        xyz="0.0032711 4.2646E-09 0.0056067"
+        rpy="0 0 0" />
+      <mass
+        value="0.0478130" />
+      <inertia
+        ixx="0.0000130"
+        ixy="0"
+        ixz="-0.0000023"
+        iyy="0.0000202"
+        iyz="0"
+        izz="0.0000102" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FL_foot_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FL_foot_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FL_foot_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 -0.279977738763235"
+      rpy="0 0 0" />
+    <parent
+      link="FL_calf_Link" />
+    <child
+      link="FL_foot_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="FR_hip_rotor_Link">
+    <inertial>
+      <origin
+        xyz="0.014123 -1.1102E-16 5.9304E-15"
+        rpy="0 0 0" />
+      <mass
+        value="0.60500" />
+      <inertia
+        ixx="0.0005131"
+        ixy="0"
+        ixz="0"
+        iyy="0.0003104"
+        iyz="0"
+        izz="0.0003100" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FR_hip_rotor_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FR_hip_rotor_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FR_hip_rotor_joint"
+    type="fixed">
+    <origin
+      xyz="0.0432249999999825 -0.100000000000003 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="FR_hip_rotor_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="FR_hip_Link">
+    <inertial>
+      <origin
+        xyz="0.061197 -0.0054083 0.0042978"
+        rpy="0 0 0" />
+      <mass
+        value="0.2285870" />
+      <inertia
+        ixx="0.0001782"
+        ixy="0.0000329"
+        ixz="-0.0000345"
+        iyy="0.0003411"
+        iyz="0"
+        izz="0.0002374" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FR_hip_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FR_hip_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FR_hip_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="FR_hip_rotor_Link" />
+    <child
+      link="FR_hip_Link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-1.5"
+      upper="1.5"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="FR_thigh_rotor_Link">
+    <inertial>
+      <origin
+        xyz="-1.4916E-13 -0.014123 2.208E-13"
+        rpy="0 0 0" />
+      <mass
+        value="0.6050000" />
+      <inertia
+        ixx="0.0003102"
+        ixy="0"
+        ixz="0.0000002"
+        iyy="0.0005131"
+        iyz="0"
+        izz="0.0003103" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FR_thigh_rotor_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FR_thigh_rotor_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FR_thigh_rotor_joint"
+    type="fixed">
+    <origin
+      xyz="0.0832750000001675 0.0197750000000023 0"
+      rpy="0 0 0" />
+    <parent
+      link="FR_hip_Link" />
+    <child
+      link="FR_thigh_rotor_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="FR_thigh_Link">
+    <inertial>
+      <origin
+        xyz="-0.0092138 0.0018694 -0.078771"
+        rpy="0 0 0" />
+      <mass
+        value="0.7853890" />
+      <inertia
+        ixx="0.0060382"
+        ixy="0.0000005"
+        ixz="-0.0003689"
+        iyy="0.0063486"
+        iyz="0.0000066"
+        izz="0.0005987" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FR_thigh_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FR_thigh_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FR_thigh_joint"
+    type="revolute">
+    <origin
+      xyz="0.083275 -0.07955 0"
+      rpy="0 0 0" />
+    <parent
+      link="FR_hip_Link" />
+    <child
+      link="FR_thigh_Link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2"
+      upper="2.2"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="FR_calf_rotor_Link">
+    <inertial>
+      <origin
+        xyz="-1.5982E-13 -0.014123 3.4029E-13"
+        rpy="0 0 0" />
+      <mass
+        value="0.6050000" />
+      <inertia
+        ixx="0.0003102"
+        ixy="0"
+        ixz="0.0000002"
+        iyy="0.0005131"
+        iyz="0"
+        izz="0.0003103" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FR_calf_rotor_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FR_calf_rotor_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FR_calf_rotor_joint"
+    type="fixed">
+    <origin
+      xyz="0 0.042274999999855 0"
+      rpy="0 0 0" />
+    <parent
+      link="FR_thigh_Link" />
+    <child
+      link="FR_calf_rotor_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="FR_calf_Link">
+    <inertial>
+      <origin
+        xyz="0.016698 8.0959E-07 -0.10593"
+        rpy="0 0 0" />
+      <mass
+        value="0.2649304" />
+      <inertia
+        ixx="0.0019828"
+        ixy="0"
+        ixz="0.0001758"
+        iyy="0.0020169"
+        iyz="0"
+        izz="0.0000508" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FR_calf_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FR_calf_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FR_calf_joint"
+    type="revolute">
+    <origin
+      xyz="0 0.002 -0.23"
+      rpy="0 0 0" />
+    <parent
+      link="FR_thigh_Link" />
+    <child
+      link="FR_calf_Link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2.2"
+      upper="-0.69"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="FR_foot_Link">
+    <inertial>
+      <origin
+        xyz="0.0032711 7.7581E-11 0.0056067"
+        rpy="0 0 0" />
+      <mass
+        value="0.0478130" />
+      <inertia
+        ixx="0.0000130"
+        ixy="0"
+        ixz="-0.0000023"
+        iyy="0.0000202"
+        iyz="0"
+        izz="0.0000102" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FR_foot_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/FR_foot_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FR_foot_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 -0.279977738763652"
+      rpy="0 0 0" />
+    <parent
+      link="FR_calf_Link" />
+    <child
+      link="FR_foot_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="imu_Link">
+    <inertial>
+      <origin
+        xyz="5.5511E-17 9.0034E-17 -0.0016145"
+        rpy="0 0 0" />
+      <mass
+        value="0.0017835" />
+      <inertia
+        ixx="0.0000001"
+        ixy="0"
+        ixz="0"
+        iyy="0.0000001"
+        iyz="0"
+        izz="0.0000002" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/imu_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/imu_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="imu_joint"
+    type="fixed">
+    <origin
+      xyz="-0.0249999999999998 0 -0.050000000000002"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="imu_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="yaw_spine_Link">
+    <inertial>
+      <origin
+        xyz="-0.054704 0.00021571 0.0026476"
+        rpy="0 0 0" />
+      <mass
+        value="0.4885381 " />
+      <inertia
+        ixx="0.0004991"
+        ixy="0.0000028"
+        ixz="0.0000599"
+        iyy="0.0008895"
+        iyz="0.0000003"
+        izz="0.0009968" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/yaw_spine_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/yaw_spine_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="yaw_spine_joint"
+    type="revolute">
+    <origin
+      xyz="-0.03855 0 -0.005275"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="yaw_spine_Link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1"
+      upper="1"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="yaw_spine_rotor_Link">
+    <inertial>
+      <origin
+        xyz="-1.8874E-15 8.7218E-17 0.014123"
+        rpy="0 0 0" />
+      <mass
+        value="0.6050000 " />
+      <inertia
+        ixx="0.0003100"
+        ixy="0"
+        ixz="0"
+        iyy="0.0003104"
+        iyz="0"
+        izz="0.0005131" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/yaw_spine_rotor_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/yaw_spine_rotor_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="yaw_spine_rotor_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="yaw_spine_Link" />
+    <child
+      link="yaw_spine_rotor_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="pitch_spine_Link">
+    <inertial>
+      <origin
+        xyz="-0.032206 -0.00047383 1.0117E-15"
+        rpy="0 0 0" />
+      <mass
+        value="0.2673513 " />
+      <inertia
+        ixx="0.0002828"
+        ixy="0.0000311"
+        ixz="0"
+        iyy="0.0004297"
+        iyz="0"
+        izz="0.0003628" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/pitch_spine_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/pitch_spine_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="pitch_spine_joint"
+    type="revolute">
+    <origin
+      xyz="-0.12 0.005275 0.005275"
+      rpy="0 0 0" />
+    <parent
+      link="yaw_spine_Link" />
+    <child
+      link="pitch_spine_Link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.5"
+      upper="1.5"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="pitch_spine_rotor_Link">
+    <inertial>
+      <origin
+        xyz="-1.9429E-16 -0.014123 -7.4407E-15"
+        rpy="0 0 0" />
+      <mass
+        value="0.6050000 " />
+      <inertia
+        ixx="0.0003104"
+        ixy="0"
+        ixz="0"
+        iyy="0.0005131"
+        iyz="0"
+        izz="0.0003100" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/pitch_spine_rotor_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/pitch_spine_rotor_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="pitch_spine_rotor_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="pitch_spine_Link" />
+    <child
+      link="pitch_spine_rotor_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="roll_spine_Link">
+    <inertial>
+      <origin
+        xyz="0.0044097 -4.7352E-10 2.4013E-10"
+        rpy="0 0 0" />
+      <mass
+        value="0.1843433 " />
+      <inertia
+        ixx="0.0002301"
+        ixy="0"
+        ixz="0"
+        iyy="0.0003132"
+        iyz="0.0000082"
+        izz="0.0003296" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/roll_spine_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/roll_spine_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="roll_spine_joint"
+    type="revolute">
+    <origin
+      xyz="-0.10528 -0.005275 0"
+      rpy="0 0 0" />
+    <parent
+      link="pitch_spine_Link" />
+    <child
+      link="roll_spine_Link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-2"
+      upper="2"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="roll_spine_rotor_Link">
+    <inertial>
+      <origin
+        xyz="0.014123 -2.0862E-16 6.1608E-15"
+        rpy="0 0 0" />
+      <mass
+        value="0.6050000 " />
+      <inertia
+        ixx="0.0005131"
+        ixy="0"
+        ixz="0"
+        iyy="0.0003104"
+        iyz="-0.0000002"
+        izz="0.0003101" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/roll_spine_rotor_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/roll_spine_rotor_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="roll_spine_rotor_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="roll_spine_Link" />
+    <child
+      link="roll_spine_rotor_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="R_body_Link">
+    <inertial>
+      <origin
+        xyz="-0.0023575 -6.7033E-16 -2.2745E-15"
+        rpy="0 0 0" />
+      <mass
+        value="2.4148982 " />
+      <inertia
+        ixx="0.0224650"
+        ixy="0"
+        ixz="0"
+        iyy="0.0091514"
+        iyz="0"
+        izz="0.0225626" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/R_body_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/R_body_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="R_body_joint"
+    type="fixed">
+    <origin
+      xyz="-0.022325 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="roll_spine_Link" />
+    <child
+      link="R_body_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="RL_hip_rotor_Link">
+    <inertial>
+      <origin
+        xyz="-0.014123 -2.5289E-13 -6.9839E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.60500" />
+      <inertia
+        ixx="0.0005131"
+        ixy="0"
+        ixz="0"
+        iyy="0.0003104"
+        iyz="0"
+        izz="0.0003100" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RL_hip_rotor_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RL_hip_rotor_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RL_hip_rotor_joint"
+    type="fixed">
+    <origin
+      xyz="-0.043225 0.1 6.9839E-05"
+      rpy="0 0 0" />
+    <parent
+      link="R_body_Link" />
+    <child
+      link="RL_hip_rotor_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="RL_hip_Link">
+    <inertial>
+      <origin
+        xyz="-0.053653 0.0048317 -6.9839E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.228587" />
+      <inertia
+        ixx="0.0002040"
+        ixy="0.0000329"
+        ixz="-0.0000064"
+        iyy="0.0003411"
+        iyz="0"
+        izz="0.0002115" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RL_hip_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RL_hip_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RL_hip_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="RL_hip_rotor_Link" />
+    <child
+      link="RL_hip_Link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-1.5"
+      upper="1.5"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="RL_thigh_rotor_Link">
+    <inertial>
+      <origin
+        xyz="1.1031E-08 0.014123 9.5922E-09"
+        rpy="0 0 0" />
+      <mass
+        value="0.6050000" />
+      <inertia
+        ixx="0.0003100"
+        ixy="0"
+        ixz="0"
+        iyy="0.0005131"
+        iyz="0"
+        izz="0.0003104" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RL_thigh_rotor_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RL_thigh_rotor_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RL_thigh_rotor_joint"
+    type="fixed">
+    <origin
+      xyz="-0.0832750000002029 -0.0197749999999996 -6.98387786875687E-05"
+      rpy="0 0 0" />
+    <parent
+      link="RL_hip_Link" />
+    <child
+      link="RL_thigh_rotor_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="RL_thigh_Link">
+    <inertial>
+      <origin
+        xyz="-0.0092138 -0.0018694 -0.078771"
+        rpy="0 0 0" />
+      <mass
+        value="0.7853888" />
+      <inertia
+        ixx="0.0060382"
+        ixy="-0.0000005"
+        ixz="-0.0003689"
+        iyy="0.0063486"
+        iyz="-0.0000066"
+        izz="0.0005987" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RL_thigh_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RL_thigh_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RL_thigh_joint"
+    type="revolute">
+    <origin
+      xyz="-0.083275 0.07955 -6.9839E-05"
+      rpy="0 0 0" />
+    <parent
+      link="RL_hip_Link" />
+    <child
+      link="RL_thigh_Link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2"
+      upper="2.2"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="RL_calf_rotor_Link">
+    <inertial>
+      <origin
+        xyz="6.3087E-13 0.28867 5.5293E-13"
+        rpy="0 0 0" />
+      <mass
+        value="0.6050000" />
+      <inertia
+        ixx="0.0003104"
+        ixy="0"
+        ixz="0.0000001"
+        iyy="0.0005131"
+        iyz="0"
+        izz="0.0003100" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RL_calf_rotor_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RL_calf_rotor_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RL_calf_rotor_joint"
+    type="fixed">
+    <origin
+      xyz="0 -0.316824996905077 0"
+      rpy="0 0 0" />
+    <parent
+      link="RL_thigh_Link" />
+    <child
+      link="RL_calf_rotor_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="RL_calf_Link">
+    <inertial>
+      <origin
+        xyz="0.016698 8.1165E-07 -0.10593"
+        rpy="0 0 0" />
+      <mass
+        value="0.2649304" />
+      <inertia
+        ixx="0.0019828"
+        ixy="0"
+        ixz="0.0001758"
+        iyy="0.0020169"
+        iyz="0"
+        izz="0.0000508" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RL_calf_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RL_calf_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RL_calf_joint"
+    type="revolute">
+    <origin
+      xyz="0 -0.002 -0.23"
+      rpy="0 0 0" />
+    <parent
+      link="RL_thigh_Link" />
+    <child
+      link="RL_calf_Link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2.2"
+      upper="-0.7"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="RL_foot_Link">
+    <inertial>
+      <origin
+        xyz="0.0032711 2.6687E-09 0.0056067"
+        rpy="0 0 0" />
+      <mass
+        value="0.0478130" />
+      <inertia
+        ixx="0.0000130"
+        ixy="0"
+        ixz="-0.0000023"
+        iyy="0.0000202"
+        iyz="0"
+        izz="0.0000102" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RL_foot_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RL_foot_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RL_foot_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 -0.279977748001165"
+      rpy="0 0 0" />
+    <parent
+      link="RL_calf_Link" />
+    <child
+      link="RL_foot_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="RR_hip_rotor_Link">
+    <inertial>
+      <origin
+        xyz="-0.014123 3.4694E-16 8.7012E-15"
+        rpy="0 0 0" />
+      <mass
+        value="0.60500" />
+      <inertia
+        ixx="0.0005131"
+        ixy="0"
+        ixz="0"
+        iyy="0.0003104"
+        iyz="0"
+        izz="0.0003100" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RR_hip_rotor_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RR_hip_rotor_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RR_hip_rotor_link"
+    type="fixed">
+    <origin
+      xyz="-0.0432249999999999 -0.100000000000003 0"
+      rpy="0 0 0" />
+    <parent
+      link="R_body_Link" />
+    <child
+      link="RR_hip_rotor_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="RR_hip_Link">
+    <inertial>
+      <origin
+        xyz="-0.054601 -0.0054083 0.0042978"
+        rpy="0 0 0" />
+      <mass
+        value="0.2285870" />
+      <inertia
+        ixx="0.0001782"
+        ixy="-0.0000329"
+        ixz="-0.0000345"
+        iyy="0.0003411"
+        iyz="0"
+        izz="0.0002374" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RR_hip_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RR_hip_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RR_hip_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="RR_hip_rotor_Link" />
+    <child
+      link="RR_hip_Link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-1.5"
+      upper="1.5"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="RR_thigh_rotor_link">
+    <inertial>
+      <origin
+        xyz="1.5543E-15 -0.014123 2.7279E-15"
+        rpy="0 0 0" />
+      <mass
+        value="0.6050000" />
+      <inertia
+        ixx="0.0003102"
+        ixy="0"
+        ixz="0.0000002"
+        iyy="0.0005131"
+        iyz="0"
+        izz="0.0003103" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RR_thigh_rotor_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RR_thigh_rotor_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RR_thigh_rotor_joint"
+    type="fixed">
+    <origin
+      xyz="-0.0832750000000012 0.0197750000000016 0"
+      rpy="0 0 0" />
+    <parent
+      link="RR_hip_Link" />
+    <child
+      link="RR_thigh_rotor_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="RR_thigh_Link">
+    <inertial>
+      <origin
+        xyz="-0.0092138 0.0018694 -0.078771"
+        rpy="0 0 0" />
+      <mass
+        value="0.7853890" />
+      <inertia
+        ixx="0.0060382"
+        ixy="0.0000005"
+        ixz="-0.0003689"
+        iyy="0.0063486"
+        iyz="0.0000066"
+        izz="0.0005987" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RR_thigh_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RR_thigh_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RR_thigh_joint"
+    type="revolute">
+    <origin
+      xyz="-0.083275 -0.07955 0"
+      rpy="0 0 0" />
+    <parent
+      link="RR_hip_Link" />
+    <child
+      link="RR_thigh_Link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2"
+      upper="2.2"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="RR_calf_rotor_Link">
+    <inertial>
+      <origin
+        xyz="-2.2204E-16 -0.014123 1.2278E-15"
+        rpy="0 0 0" />
+      <mass
+        value="0.60500" />
+      <inertia
+        ixx="0.0003101"
+        ixy="0"
+        ixz="-0.0000002"
+        iyy="0.0005131"
+        iyz="0"
+        izz="0.0003103" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RR_calf_rotor_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RR_calf_rotor_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RR_calf_rotor_joint"
+    type="fixed">
+    <origin
+      xyz="0 0.0422750000000008 0"
+      rpy="0 0 0" />
+    <parent
+      link="RR_thigh_Link" />
+    <child
+      link="RR_calf_rotor_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="RR_calf_Link">
+    <inertial>
+      <origin
+        xyz="0.016698 8.1161E-07 -0.10593"
+        rpy="0 0 0" />
+      <mass
+        value="0.2649304" />
+      <inertia
+        ixx="0.0019828"
+        ixy="0"
+        ixz="0.0001758"
+        iyy="0.0020169"
+        iyz="0"
+        izz="0.0000508" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RR_calf_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RR_calf_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RR_calf_joint"
+    type="revolute">
+    <origin
+      xyz="0 0.002 -0.23"
+      rpy="0 0 0" />
+    <parent
+      link="RR_thigh_Link" />
+    <child
+      link="RR_calf_Link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2.2"
+      upper="-0.7"
+      effort="100"
+      velocity="100" />
+  </joint>
+  <link
+    name="RR_foot_Link">
+    <inertial>
+      <origin
+        xyz="0.0032711 2.6084E-09 0.0056067"
+        rpy="0 0 0" />
+      <mass
+        value="0.0478130" />
+      <inertia
+        ixx="0.0000130"
+        ixy="0"
+        ixz="-0.0000023"
+        iyy="0.0000202"
+        iyz="0"
+        izz="0.0000102" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RR_foot_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/RR_foot_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RR_foot_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 -0.279977750211072"
+      rpy="0 0 0" />
+    <parent
+      link="RR_calf_Link" />
+    <child
+      link="RR_foot_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="pig_Link">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.0134087" />
+      <inertia
+        ixx="0.0000032"
+        ixy="0"
+        ixz="0"
+        iyy="0.0000050"
+        iyz="0"
+        izz="0.0000056" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/pig_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0.502 0.753 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///root/gpufree-data/Fast-Quadruped/source/robot_lab/data/Robots/Himmy/mark2_description/meshes/pig_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="pig_joint"
+    type="fixed">
+    <origin
+      xyz="0.0375000000000003 0 0.0889999999999967"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="pig_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

@@ -1,0 +1,116 @@
+{
+    // ========== Python 解释器和环境配置 ==========
+    "python.defaultInterpreterPath": "/data/zmli/.conda/envs/isaac-lab/bin/python",
+    "python.envFile": "${workspaceFolder}/.vscode/.python.env",
+    
+    // ========== 完全禁用 Python 语言服务器的错误检查 ==========
+    "python.languageServer": "None",
+    
+    // ========== 基础 Python 设置 ==========
+    "python.linting.enabled": false,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": false,
+    "python.linting.mypyEnabled": false,
+    
+    // ========== 额外的 Python 路径（仅用于补全） ==========
+    "python.autoComplete.extraPaths": [
+        "${workspaceFolder}/source/robot_lab",
+        "/data/zmli/IsaacLab/source/isaaclab",
+        "/data/zmli/IsaacLab/source/isaaclab_assets",
+        "/data/zmli/IsaacLab/source/isaaclab_mimic",
+        "/data/zmli/IsaacLab/source/isaaclab_rl",
+        "/data/zmli/IsaacLab/source/isaaclab_tasks"
+    ],
+    
+    // ========== Markdown 文件配置 ==========
+    "[markdown]": {
+        "editor.quickSuggestions": {
+            "comments": "off",
+            "strings": "off",
+            "other": "off"
+        },
+        "editor.wordBasedSuggestions": "off",
+        "editor.suggest.showWords": false,
+        "editor.parameterHints.enabled": false,
+        "editor.suggestOnTriggerCharacters": false,
+        "editor.acceptSuggestionOnEnter": "off"
+    },
+    // 纯文本文件配置
+    "[plaintext]": {
+        "editor.quickSuggestions": {
+            "comments": "off",
+            "strings": "off",
+            "other": "off"
+        },
+        "editor.wordBasedSuggestions": "off",
+        "editor.suggest.showWords": false,
+        "editor.parameterHints.enabled": false,
+        "editor.suggestOnTriggerCharacters": false,
+        "editor.acceptSuggestionOnEnter": "off"
+    },
+    // 禁用 Markdown 验证
+    "markdown.validate.enabled": false,
+    // 禁用 cSpell 拼写检查
+    "cSpell.enableFiletypes": [
+        "!markdown",
+        "!plaintext"
+    ],
+    "cSpell.enabled": false,
+    // 禁用 SpellRight 拼写检查
+    "spellright.language": [],
+    "spellright.documentTypes": [],
+    // Pylance 配置：排除和忽略 MD 和 TXT 文件
+    "python.analysis.exclude": [
+        "**/*.md",
+        "**/*.txt"
+    ],
+    "python.analysis.ignore": [
+        "**/*.md",
+        "**/*.txt"
+    ],
+    "python.analysis.diagnosticMode": "openFilesOnly",
+    "python.languageServer": "Pylance",
+    "python.envFile": "${workspaceFolder}/.vscode/.python.env",
+    "python.defaultInterpreterPath": "/data/zmli/.conda/envs/isaac-lab/bin/python",
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/source/robot_lab",
+        "/data/zmli/IsaacLab/source/isaaclab",
+        "/data/zmli/IsaacLab/source/isaaclab_assets",
+        "/data/zmli/IsaacLab/source/isaaclab_mimic",
+        "/data/zmli/IsaacLab/source/isaaclab_rl",
+        "/data/zmli/IsaacLab/source/isaaclab_tasks",
+        "/data/zmli/IsaacLab/apps/isaacsim_4_5"
+    ],
+    "python.analysis.typeCheckingMode": "off",
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportGeneralTypeIssues": "none",
+        "reportOptionalMemberAccess": "none",
+        "reportOptionalSubscript": "none",
+        "reportPrivateImportUsage": "none",
+        "reportUnboundVariable": "none",
+        "reportUndefinedVariable": "none",
+        "reportAttributeAccessIssue": "none",
+        "reportMissingImports": "none",
+        "reportMissingTypeStubs": "none",
+        "reportUnknownMemberType": "none",
+        "reportUnknownParameterType": "none",
+        "reportUnknownVariableType": "none",
+        "reportUnknownArgumentType": "none",
+        "reportInvalidTypeForm": "none",
+        "reportCallIssue": "none"
+    },
+    "python.analysis.useLibraryCodeForTypes": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.indexing": true,
+    // 禁用 Copilot 对 Markdown 和纯文本的建议
+    "github.copilot.enable": {
+        "*": true,
+        "markdown": false,
+        "plaintext": false
+    },
+    // 文件类型关联
+    "files.associations": {
+        "*.md": "markdown",
+        "*.txt": "plaintext"
+    }
+}

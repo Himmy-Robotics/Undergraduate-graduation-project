@@ -1,0 +1,50 @@
+robot_lab/
+│
+├── 📦 第1层：机器人物理定义层 (Assets)
+│   └── source/robot_lab/robot_lab/assets/
+│       ├── unitree.py           ← Unitree系列机器人（Go2, A1, B2等）
+│       ├── deeprobotics.py      ← Deeprobotics系列
+│       ├── fftai.py            ← FFTAI人形机器人
+│       └── ...                 ← 其他品牌机器人
+│
+├── 📋 第2层：任务环境定义层 (Tasks)
+│   └── source/robot_lab/robot_lab/tasks/manager_based/locomotion/velocity/
+│       │
+│       ├── velocity_env_cfg.py  ← 【基类】所有速度控制任务的基础配置
+│       │
+│       ├── mdp/                 ← 【MDP组件库】马尔可夫决策过程的各个组件
+│       │   ├── rewards.py       ← 奖励函数实现（30+个函数）
+│       │   ├── observations.py  ← 观察处理函数
+│       │   ├── commands.py      ← 速度命令生成器
+│       │   ├── events.py        ← 域随机化事件
+│       │   └── curriculums.py   ← 课程学习策略
+│       │
+│       └── config/              ← 【具体机器人配置】
+│           ├── quadruped/       ← 四足机器人
+│           │   ├── unitree_go2/
+│           │   │   ├── rough_env_cfg.py   ← 崎岖地形配置
+│           │   │   ├── flat_env_cfg.py    ← 平坦地形配置
+│           │   │   └── agents/            ← RL算法配置
+│           │   │       ├── rsl_rl_ppo_cfg.py   ← RSL-RL的PPO配置
+│           │   │       └── cusrl_ppo_cfg.py    ← CusRL的PPO配置
+│           │   ├── unitree_a1/
+│           │   ├── anymal_d/
+│           │   └── ...
+│           ├── humanoid/        ← 人形机器人
+│           └── wheeled/         ← 轮式机器人
+│
+├── 🤖 第3层：强化学习算法层 (RL Algorithms)
+│   └── scripts/reinforcement_learning/
+│       ├── rsl_rl/
+│       │   ├── train.py         ← RSL-RL训练脚本（主入口）
+│       │   ├── play.py          ← 测试/推理脚本
+│       │   └── cli_args.py      ← 命令行参数解析
+│       ├── cusrl/
+│       └── skrl/
+│
+└── 🗂️ 第4层：机器人资产文件 (URDF/Meshes)
+    └── source/robot_lab/data/Robots/
+        └── unitree/
+            └── go2_description/
+                ├── urdf/robot.urdf     ← 机器人模型
+                └── meshes/             ← 3D网格文件

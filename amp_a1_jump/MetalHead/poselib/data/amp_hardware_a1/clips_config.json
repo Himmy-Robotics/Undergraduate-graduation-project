@@ -1,0 +1,6 @@
+{
+    "trot_forward0": {"clip": [124, 273], "remarks": "trot_c_forward"},
+    "trot_forward1": {"clip": [0, 200], "remarks": "trot"},
+    "gallop_forward0": {"clip": [0, -1], "remarks": "gallop"},
+    "gallop_forward1": {"clip": [0, -1], "remarks": "gallop"}
+}

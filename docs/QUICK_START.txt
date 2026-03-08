@@ -1,0 +1,186 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                  Himmy Mark2 强化学习训练 - 快速命令参考                       ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📍 项目位置
+───────────────────────────────────────────────────────────────────────────────
+cd Fast-Quadruped/
+
+
+🚀 最快开始 (3 种方式)
+───────────────────────────────────────────────────────────────────────────────
+
+方式 1️⃣ : 快速启动脚本 (最简单) ⭐ 推荐
+─────────────────────────
+python start_training.py --terrain flat
+python start_training.py --terrain rough
+
+
+方式 2️⃣ : 直接运行训练脚本
+─────────────────────────
+# 平坦地形
+python scripts/reinforcement_learning/rsl_rl/train.py \
+    --task RobotLab-Isaac-Velocity-Flat-Himmy-Mark2-v0 \
+    --num_envs 4096 --headless
+
+# 粗糙地形
+python scripts/reinforcement_learning/rsl_rl/train.py \
+    --task RobotLab-Isaac-Velocity-Rough-Himmy-Mark2-v0 \
+    --num_envs 4096 --headless
+
+
+方式 3️⃣ : Python 代码调用
+─────────────────────────
+python -c "
+import gymnasium as gym
+import robot_lab.tasks.manager_based.locomotion.velocity.config.quadruped.himmy_mark2
+
+env = gym.make('RobotLab-Isaac-Velocity-Flat-Himmy-Mark2-v0')
+obs, info = env.reset()
+for _ in range(100):
+    obs, reward, done, truncated, info = env.step(env.action_space.sample())
+    if done: obs, info = env.reset()
+"
+
+
+💾 保存/恢复训练
+───────────────────────────────────────────────────────────────────────────────
+
+# 列出所有训练运行
+ls -lhS logs/rsl_rl/
+
+# 从上次暂停的地方继续
+python scripts/reinforcement_learning/rsl_rl/train.py \
+    --task RobotLab-Isaac-Velocity-Flat-Himmy-Mark2-v0 \
+    --resume
+
+# 从特定检查点继续 (transfer learning/fine-tuning)
+python scripts/reinforcement_learning/rsl_rl/train.py \
+    --task RobotLab-Isaac-Velocity-Rough-Himmy-Mark2-v0 \
+    --load_run 2025-11-24_10-30-45_experiment \
+    --checkpoint 5000 \
+    --headless
+
+
+📊 实时监控
+───────────────────────────────────────────────────────────────────────────────
+
+# 启动 TensorBoard (新终端)
+tensorboard --logdir logs/rsl_rl/
+
+# 访问 http://localhost:6006 查看实时训练曲线
+
+
+⚙️ 自定义参数
+───────────────────────────────────────────────────────────────────────────────
+
+# 减少 GPU 内存占用
+python start_training.py --terrain flat --num_envs 2048
+
+# 快速验证 (100 次迭代)
+python scripts/reinforcement_learning/rsl_rl/train.py \
+    --task RobotLab-Isaac-Velocity-Flat-Himmy-Mark2-v0 \
+    --max_iterations 100 --headless
+
+# 启用视频录制
+python start_training.py --terrain flat --video
+
+# 指定随机种子
+python start_training.py --terrain flat --seed 42
+
+# 设置自定义运行名称
+python start_training.py --terrain flat --run_name my_experiment_v1
+
+
+🧪 测试/推理
+───────────────────────────────────────────────────────────────────────────────
+
+# 使用训练好的模型进行推理
+python scripts/reinforcement_learning/rsl_rl/play.py \
+    --task RobotLab-Isaac-Velocity-Rough-Himmy-Mark2-v0 \
+    --load_run 2025-11-24_10-30-45_experiment \
+    --checkpoint 10000
+
+
+📂 关键文件位置
+───────────────────────────────────────────────────────────────────────────────
+
+# 机器人配置
+source/robot_lab/robot_lab/assets/_Himmy_robot.py
+
+# 环境配置
+source/robot_lab/robot_lab/tasks/manager_based/locomotion/velocity/config/quadruped/himmy_mark2/
+├── rough_env_cfg.py
+├── flat_env_cfg.py
+└── agents/
+    ├── rsl_rl_ppo_cfg.py      (RSL-RL 算法参数)
+    └── cusrl_ppo_cfg.py        (CusRL 算法参数)
+
+# 机器人 URDF 和网格
+source/robot_lab/data/Robots/Himmy/mark2_description/
+├── urdf/mark2.urdf
+└── meshes/*.STL
+
+# 训练输出
+logs/rsl_rl/
+
+
+📚 文档参考
+───────────────────────────────────────────────────────────────────────────────
+
+TRAINING_GUIDE.md                     ← 详细训练指南
+HIMMY_MARK2_INTEGRATION_GUIDE.md       ← 集成详情
+HIMMY_QUICK_REFERENCE.txt             ← 参数调整参考
+TRAINING_COMPLETE_SUMMARY.md          ← 完整总结
+
+
+❓ 常见问题快速解决
+───────────────────────────────────────────────────────────────────────────────
+
+Q: 环境未找到
+A: 确保导入环境模块:
+   python -c "
+   import robot_lab.tasks.manager_based.locomotion.velocity.config.quadruped.himmy_mark2
+   import gymnasium as gym
+   print(gym.registry.keys() | set('himmy' in s for s in gym.registry.keys()))
+   "
+
+Q: CUDA 内存不足
+A: 减少环境数: --num_envs 2048
+
+Q: 机器人无法平衡
+A: 增加初始高度 (编辑 _Himmy_robot.py):
+   pos=(0.0, 0.0, 0.4)  # 改为 0.4 或 0.45
+
+Q: 训练太慢
+A: 增加环境数或 GPU: --num_envs 8192
+
+Q: 如何使用预训练模型
+A: python start_training.py --terrain rough --load_run <name>
+
+
+✨ 三步开始训练
+───────────────────────────────────────────────────────────────────────────────
+
+1️⃣  平坦地形快速验证 (~10 分钟)
+   python start_training.py --terrain flat --max_iterations 100
+
+2️⃣  平坦地形完整训练 (~30-60 分钟)
+   python start_training.py --terrain flat
+
+3️⃣  粗糙地形微调训练 (~2-4 小时)
+   python start_training.py --terrain rough --load_run <step2_experiment>
+
+
+🎉 准备就绪！
+───────────────────────────────────────────────────────────────────────────────
+
+✅ 机器人配置完成
+✅ 环境配置完成
+✅ RL 算法配置完成
+✅ 所有文件已验证
+
+现在就开始训练:
+   python start_training.py --terrain flat
+
+祝您训练顺利！🚀
