@@ -440,14 +440,14 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         with torch.inference_mode():
             # agent stepping
             # Handle dict/TensorDict observations
-            # if isinstance(obs, dict):
-            #     obs_input = obs["policy"]
-            # elif hasattr(obs, "keys") and "policy" in obs.keys():
-            #     obs_input = obs["policy"]
-            # else:
-            #     obs_input = obs
+            if isinstance(obs, dict):
+                obs_input = obs["policy"]
+            elif hasattr(obs, "keys") and "policy" in obs.keys():
+                obs_input = obs["policy"]
+            else:
+                obs_input = obs
                 
-            actions = policy(obs)
+            actions = policy(obs_input)
             # actions = torch.zeros_like(actions)
             # env stepping
             obs, _, _, _ = env.step(actions)

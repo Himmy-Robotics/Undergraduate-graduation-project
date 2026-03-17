@@ -168,7 +168,9 @@ python scripts/reinforcement_learning/rsl_rl/play.py --task=RobotLab-Isaac-Veloc
 nvidia-smi
 
 # 查看tersorboard
-tensorboard --logdir=/root/gpufree-data/Fast-Quadruped/logs/rsl_rl/himmy_mark2_flat --port 6007
+tensorboard --logdir=/data/zmli/Undergraduate-graduation-project/logs/rsl_rl/a1_amp --port 6007
+
+tensorboard --logdir=/workspace/Undergraduate-graduation-project/logs/rsl_rl/a1_amp --port 6007
 
 # 可视化AMP运动轨迹
 python scripts/tools/visualize_amp_motion_simple.py --motion_file pace1.txt
@@ -199,5 +201,28 @@ cd /data/zmli/Fast-Quadruped && conda activate isaac-lab && python scripts/tools
 
 
 
+
+
+# AMP
+
+#  training
+python scripts/reinforcement_learning/rsl_rl/train.py --task RobotLab-Isaac-Himmy-AMP-Direct-v0 --headless --run_name=
+
+
+
+# play and video
+python scripts/reinforcement_learning/rsl_rl/play.py --task=RobotLab-Isaac-Himmy-AMP-Direct-v0 --headless --load_run 2025-12-30_15-57-50_himmy_simple_obs --video --video_length 1000 --num_envs 32 --debug_vis
+
+python scripts/reinforcement_learning/rsl_rl/play.py --task=RobotLab-Isaac-Himmy-AMP-Direct-v0 --headless --load_run 2026-01-05_11-13-30_himmy_amp_simple_obs_test --checkpoint /data/zmli/Fast-Quadruped/logs/rsl_rl/himmy_amp/2026-01-05_11-13-30_himmy_amp_simple_obs_test/model_6600.pt --video --video_length 1000 --num_envs 32 --debug_vis --video_name himmy_simple_obs_test_6600
+
+python scripts/reinforcement_learning/rsl_rl/play.py --task=RobotLab-Isaac-A1-AMP-Direct-v0 --headless --load_run 2026-03-16_11-25-08 --video --video_length 1000 
+
+
+/workspace/isaaclab/_isaac_sim/python.sh scripts/reinforcement_learning/rsl_rl/train.py \
+    --task=RobotLab-Isaac-A1-AMP-Direct-v0 --headless 
+    
+/workspace/isaaclab/_isaac_sim/python.sh scripts/reinforcement_learning/rsl_rl/train.py \
+    --task=RobotLab-Isaac-Velocity-Flat-Run-Himmy-Mark2-v0 --headless 
+    
 
 

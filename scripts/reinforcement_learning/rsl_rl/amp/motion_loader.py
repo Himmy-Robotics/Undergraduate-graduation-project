@@ -101,14 +101,30 @@ class AMPLoader:
                     ], dtype=torch.float32, device=device))
                 
                 # 存储不含脚趾位置的轨迹数据，用于 AMP 观测
-                # Joint Pos (12) + Lin Vel (3) + Ang Vel (3) + Joint Vel (12) = 30
-                amp_obs_data = np.concatenate([
-                    motion_data[:, AMPLoader.JOINT_POSE_START_IDX:AMPLoader.JOINT_POSE_END_IDX],  # Joint Pos
-                    motion_data[:, AMPLoader.LINEAR_VEL_START_IDX:AMPLoader.ANGULAR_VEL_END_IDX],  # Lin + Ang Vel
-                    motion_data[:, AMPLoader.JOINT_VEL_START_IDX:AMPLoader.JOINT_VEL_END_IDX],  # Joint Vel
-                ], axis=1)
-                self.trajectories_amp.append(torch.tensor(
-                    amp_obs_data, dtype=torch.float32, device=device))
+                # 动态调用 compute_amp_obs 提取 15 维 (root_rot 3 + joint_pos 12)
+                from robot_lab.tasks.direct.himmy_amp.A1_amp_env import compute_amp_obs
+                motion_tensor = torch.tensor(motion_data, dtype=torch.float32, device=device)
+                
+                # 提取各个部分
+                root_pos =       motion_tensor[:, AMPLoader.ROOT_POS_START_IDX:AMPLoader.ROOT_POS_END_IDX]
+                root_rot_xyzw =  motion_tensor[:, AMPLoader.ROOT_ROT_START_IDX:AMPLoader.ROOT_ROT_END_IDX]
+                dof_positions =  motion_tensor[:, AMPLoader.JOINT_POSE_START_IDX:AMPLoader.JOINT_POSE_END_IDX]
+                dof_velocities = motion_tensor[:, AMPLoader.JOINT_VEL_START_IDX:AMPLoader.JOINT_VEL_END_IDX]
+                root_lin_vel =   motion_tensor[:, AMPLoader.LINEAR_VEL_START_IDX:AMPLoader.LINEAR_VEL_END_IDX]
+                root_ang_vel =   motion_tensor[:, AMPLoader.ANGULAR_VEL_START_IDX:AMPLoader.ANGULAR_VEL_END_IDX]
+                key_body_pos =   torch.zeros((motion_tensor.shape[0], 4, 3), dtype=torch.float32, device=device) # unused
+                
+                amp_obs_tensor = compute_amp_obs(
+                    dof_positions=dof_positions, 
+                    dof_velocities=dof_velocities, 
+                    root_pos=root_pos, 
+                    root_rot=root_rot_xyzw, 
+                    root_lin_vel=root_lin_vel, 
+                    root_ang_vel=root_ang_vel, 
+                    key_body_pos=key_body_pos
+                )
+                
+                self.trajectories_amp.append(amp_obs_tensor)
                 
                 self.trajectories_full.append(torch.tensor(
                         motion_data[:, :AMPLoader.JOINT_VEL_END_IDX],
@@ -234,7 +250,7 @@ class AMPLoader:
         all_frame_starts = torch.zeros(len(traj_idxs), self.observation_dim, device=self.device)
         all_frame_ends = torch.zeros(len(traj_idxs), self.observation_dim, device=self.device)
         for traj_idx in set(traj_idxs):
-            trajectory = self.trajectories[traj_idx]
+            trajectory = self.trajectories_amp[traj_idx]
             traj_mask = traj_idxs == traj_idx
             all_frame_starts[traj_mask] = trajectory[idx_low[traj_mask]]
             all_frame_ends[traj_mask] = trajectory[idx_high[traj_mask]]
@@ -352,18 +368,22 @@ class AMPLoader:
             if self.preload_transitions:
                 idxs = np.random.choice(
                     self.preloaded_s.shape[0], size=mini_batch_size)
-                # 提取不含脚趾位置和root height的 AMP 观测
-                # Joint Pos (12) + Lin Vel (3) + Ang Vel (3) + Joint Vel (12) = 30
-                s = torch.cat([
-                    self.preloaded_s[idxs, AMPLoader.JOINT_POSE_START_IDX:AMPLoader.JOINT_POSE_END_IDX],  # Joint Pos (12)
-                    self.preloaded_s[idxs, AMPLoader.LINEAR_VEL_START_IDX:AMPLoader.ANGULAR_VEL_END_IDX],  # Lin Vel + Ang Vel (6)
-                    self.preloaded_s[idxs, AMPLoader.JOINT_VEL_START_IDX:AMPLoader.JOINT_VEL_END_IDX],  # Joint Vel (12)
-                ], dim=-1)
-                s_next = torch.cat([
-                    self.preloaded_s_next[idxs, AMPLoader.JOINT_POSE_START_IDX:AMPLoader.JOINT_POSE_END_IDX],
-                    self.preloaded_s_next[idxs, AMPLoader.LINEAR_VEL_START_IDX:AMPLoader.ANGULAR_VEL_END_IDX],
-                    self.preloaded_s_next[idxs, AMPLoader.JOINT_VEL_START_IDX:AMPLoader.JOINT_VEL_END_IDX],
-                ], dim=-1)
+                # 动态提取 46 维
+                from robot_lab.tasks.direct.himmy_amp.A1_amp_env import compute_amp_obs
+                
+                def extract_amp(tensor):
+                    return compute_amp_obs(
+                        dof_positions=tensor[:, AMPLoader.JOINT_POSE_START_IDX:AMPLoader.JOINT_POSE_END_IDX],
+                        dof_velocities=tensor[:, AMPLoader.JOINT_VEL_START_IDX:AMPLoader.JOINT_VEL_END_IDX],
+                        root_pos=tensor[:, AMPLoader.ROOT_POS_START_IDX:AMPLoader.ROOT_POS_END_IDX],
+                        root_rot=tensor[:, AMPLoader.ROOT_ROT_START_IDX:AMPLoader.ROOT_ROT_END_IDX],
+                        root_lin_vel=tensor[:, AMPLoader.LINEAR_VEL_START_IDX:AMPLoader.LINEAR_VEL_END_IDX],
+                        root_ang_vel=tensor[:, AMPLoader.ANGULAR_VEL_START_IDX:AMPLoader.ANGULAR_VEL_END_IDX],
+                        key_body_pos=tensor[:, AMPLoader.TAR_TOE_POS_LOCAL_START_IDX:AMPLoader.TAR_TOE_POS_LOCAL_END_IDX].view(-1, 4, 3)
+                    )
+                
+                s = extract_amp(self.preloaded_s[idxs])
+                s_next = extract_amp(self.preloaded_s_next[idxs])
             else:
                 s, s_next = [], []
                 traj_idxs = self.weighted_traj_idx_sample_batch(mini_batch_size)
@@ -380,16 +400,11 @@ class AMPLoader:
 
     @property
     def observation_dim(self):
-        """Size of AMP observations (without toe positions and root height).
+        """Size of AMP observations.
         
-        30 dim = Joint Pos (12) + Lin Vel (3) + Ang Vel (3) + Joint Vel (12)
-        
-        移除了 root height (1 dim)，原因：
-        - 数据集来自不同尺寸的机器人（如 A1）
-        - 保留 height 会强制目标机器人匹配源机器人的站高
-        - 这会导致腿长不同的机器人出现"跪地"或"踮脚"的异常行为
+        46 dim = Root height (1) + Root rot (3) + Root lin vel (3) + Root ang vel (3) + Joint Pos (12) + Joint Vel (12) + Foot Pos (12)
         """
-        return 30
+        return 46
 
     @property
     def num_motions(self):

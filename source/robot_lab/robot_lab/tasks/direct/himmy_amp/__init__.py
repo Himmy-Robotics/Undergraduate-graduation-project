@@ -28,3 +28,13 @@ gym.register(
         # "skrl_amp_cfg_entry_point": f"{agents.__name__}:skrl_dance_amp_cfg.yaml",
     },
 )
+
+gym.register(
+    id="RobotLab-Isaac-A1-AMP-Direct-v0",
+    entry_point=f"{__name__}.A1_amp_env:A1AmpEnv",
+    disable_env_checker=True,
+    kwargs={
+        "env_cfg_entry_point": f"{__name__}.A1_amp_env_cfg:A1AmpEnvCfg",
+        "rsl_rl_cfg_entry_point": f"{agents.__name__}.rsl_rl_a1_amp_cfg:A1AmpPpoRunnerCfg",
+    },
+)

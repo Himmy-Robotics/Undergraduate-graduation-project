@@ -121,8 +121,8 @@ class RslRlVecEnvWrapperConcrete(RslRlVecEnvWrapper):
 
     def get_observations(self):
         obs = super().get_observations()
-        # if hasattr(obs, "get") and obs.get("policy") is not None:
-        #     obs = obs["policy"]
+        if hasattr(obs, "get") and obs.get("policy") is not None:
+            obs = obs["policy"]
         return obs
 
     def step(self, actions):
@@ -192,8 +192,8 @@ class RslRlVecEnvWrapperConcrete(RslRlVecEnvWrapper):
                  # This is a hack.
                  dones = torch.zeros(obs.shape[0], device=obs.device, dtype=torch.bool)
 
-        # if hasattr(obs, "get") and obs.get("policy") is not None:
-        #     obs = obs["policy"]
+        if hasattr(obs, "get") and obs.get("policy") is not None:
+            obs = obs["policy"]
             
         reset_env_ids = (dones > 0).nonzero(as_tuple=False).flatten()
         
@@ -219,7 +219,18 @@ class RslRlVecEnvWrapperConcrete(RslRlVecEnvWrapper):
         extras["reset_env_ids"] = reset_env_ids
         extras["terminal_amp_states"] = terminal_amp_states
 
-        return obs, rewards, dones, extras
+        is_amp = hasattr(self.unwrapped, "get_amp_observations") or "amp_obs" in extras
+        if is_amp:
+            return obs, privileged_obs, rewards, dones, extras, reset_env_ids, terminal_amp_states
+        elif privileged_obs is not None:
+            return obs, privileged_obs, rewards, dones, extras
+        else:
+            # Fallback for old runners that don't expect privileged_obs
+            # But recent RSL-RL expects 5 values: obs, privileged_obs, rewards, dones, extras
+            # So returning 5 is generally safer, but let's conform to original length if possible
+            if len(ret) == 4 and privileged_obs is None:
+                 return obs, rewards, dones, extras
+            return obs, privileged_obs, rewards, dones, extras
 
     def get_amp_observations(self):
         if hasattr(self.unwrapped, "get_amp_observations"):
