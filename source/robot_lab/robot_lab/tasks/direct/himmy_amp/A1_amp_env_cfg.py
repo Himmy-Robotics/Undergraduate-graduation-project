@@ -40,8 +40,8 @@ class A1AmpEnvCfg(DirectRLEnvCfg):
     # 原始 temp_amp_repo 的 scales 值是 1.5 和 0.5，除以 dt 是为了 IsaacGym 的累积机制
     # 但在 IsaacLab 中，奖励不需要除以 dt，直接使用原始 scales 值
     rew_termination = 0.0
-    rew_lin_vel_xy = 1.5    # 线速度跟踪奖励 (原始scales值，不除以dt)
-    rew_ang_vel_z = 0.5     # 角速度跟踪奖励 (原始scales值，不除以dt)
+    rew_lin_vel_xy = 5.0    # 线速度跟踪奖励 0.15 * 1. / (.005 * 6) = 5.0
+    rew_ang_vel_z = 3.33     # 角速度跟踪奖励 0.1 * 1. / (.005 * 6) = 3.33
 
     rew_action_rate = -0.00 # 动作变化率惩罚 (平滑, 减少高频抖动)
     rew_base_height = 0.0  # 基座高度奖励 (保持正确站高，防止跪地)
@@ -50,7 +50,7 @@ class A1AmpEnvCfg(DirectRLEnvCfg):
     # Undesired contacts penalty (非脚部接触惩罚)
     # 惩罚躯体、大腿、小腿等非脚部身体部位与地面接触
     # 这可以防止机器人坐下或跪地
-    rew_undesired_contacts = -0.6  # 负值表示惩罚 (每个接触身体部位的惩罚)
+    rew_undesired_contacts = 0.0  # a1_amp_jump 中 penalize_contacts_on 为空，故设为 0
     undesired_contact_threshold = 0.025  # 高度阈值 (m)，低于此高度视为接触地面
     undesired_contact_body_names = [
         # 躯干部位
@@ -69,17 +69,17 @@ class A1AmpEnvCfg(DirectRLEnvCfg):
 
 
     # env (环境参数)
-    episode_length_s = 20.0
+    episode_length_s = 10.0
     decimation = 6 # 参考 A1AMPCfg (sim dt=0.005, policy dt=0.03)
     dt = 0.005
 
     # commands (指令范围) - 与 temp_amp_repo/a1_amp_config.py 对齐
     class CommandsCfg:
-        lin_vel_x_range = [0.5, 1.5]  # m/s (参考: [0.0, 5.0])
-        lin_vel_y_range = [-0.2, 0.2] # m/s (参考: [-0.3, 0.3])
-        ang_vel_yaw_range = [-0.3, 0.30] # rad/s (参考: [-1.57, 1.57])
+        lin_vel_x_range = [0.0, 2.0]  # m/s (参考 a1 jump amp: [1.2, 1.21])
+        lin_vel_y_range = [-0.3, 0.3] # m/s (参考 a1 jump amp: [0.0, 0.01])
+        ang_vel_yaw_range = [-1.57, 1.57] # rad/s (参考 a1 jump amp: [0.0, 0.001])
         heading_command = False # 是否使用朝向指令 (暂不使用)
-        resampling_time = 10.0 # 指令重采样时间 (秒)
+        resampling_time = 2.0 # 指令重采样时间 (秒)
 
     commands = CommandsCfg()
 
@@ -104,7 +104,7 @@ class A1AmpEnvCfg(DirectRLEnvCfg):
     # 使用 A1 专用的动作数据集
     motions_dir = MOTIONS_A1_DIR
     reference_body = "trunk" # 参考身体部位 (A1 的基座名称)
-    reset_strategy = "default" # 重置策略: "default" (初始姿态) 或 "random-start" (随机动作帧)
+    reset_strategy = "random-start" # 重置策略: "default" (初始姿态) 或 "random-start" (随机动作帧)
 
     # =============================================================================
     # 课程学习配置 (Curriculum Learning)

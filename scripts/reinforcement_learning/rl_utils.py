@@ -175,7 +175,7 @@ def camera_follow(env):
     确保无论机器人朝向如何变化，相机始终拍摄相同的相对视角。
     """
     # 局部坐标系偏移: x=前后, y=左右, z=上下（机器人体坐标系）
-    local_offset = np.array([6.0, 6.0, 6.0])
+    local_offset = np.array([0.0, 4.0, 1.0])
 
     robot = env.unwrapped.scene["robot"]
     robot_pos = robot.data.root_pos_w[0].cpu().numpy()
@@ -196,8 +196,9 @@ def camera_follow(env):
 
     env.unwrapped.viewport_camera_controller.set_view_env_index(env_index=0)
     env.unwrapped.viewport_camera_controller.update_view_location(
-        eye=robot_pos + np.array([5, 5, 6]), lookat=robot_pos
-        # eye=robot_pos + world_offset, lookat=robot_pos
+        # eye=robot_pos + np.array([5, 5, 6]), lookat=robot_pos
+        
+        eye=robot_pos + world_offset, lookat=robot_pos  # 侧边跟随
     )
 
 

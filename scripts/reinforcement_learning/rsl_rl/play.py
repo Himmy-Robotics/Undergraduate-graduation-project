@@ -197,10 +197,10 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     if hasattr(env_cfg, "curriculum") and env_cfg.curriculum is not None:
         env_cfg.curriculum.command_levels = None
 
-    # 禁用速度命令和速度箭头的可视化（用于视频录制）
+    # 设置速度命令和速度箭头的可视化（用于视频录制）
     if args_cli.video:
         if hasattr(env_cfg, "commands") and hasattr(env_cfg.commands, "base_velocity"):
-            env_cfg.commands.base_velocity.debug_vis = False
+            env_cfg.commands.base_velocity.debug_vis = args_cli.debug_vis
 
         # === 论文级高质量视频录制设置 ===
         # 1. 提升视频分辨率到 1920x1080 (Full HD)
@@ -439,13 +439,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         # run everything in inference mode
         with torch.inference_mode():
             # agent stepping
-            # Handle dict/TensorDict observations
-            if isinstance(obs, dict):
-                obs_input = obs["policy"]
-            elif hasattr(obs, "keys") and "policy" in obs.keys():
-                obs_input = obs["policy"]
-            else:
-                obs_input = obs
+            # For modern rsl-rl, pass the entire observation dict to the policy
+            obs_input = obs
                 
             actions = policy(obs_input)
             # actions = torch.zeros_like(actions)

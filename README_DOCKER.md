@@ -64,3 +64,14 @@ docker run --name isaac-lab-dev \
 cd /workspace/Undergraduate-graduation-project
 /workspace/isaaclab/_isaac_sim/python.sh -m pip install -e source/robot_lab
 /workspace/isaaclab/_isaac_sim/python.sh -m pip install pybullet
+
+
+# 安装tmux
+apt-get update && apt-get install -y tmux
+tmux new -s train
+
+
+
+
+id zmli
+docker exec isaac-lab-dev chown -R 1022:1023 /workspace/Undergraduate-graduation-project/logs/

@@ -1,0 +1,119 @@
+# Copyright (c) 2024-2025 Ziqi Fan
+# SPDX-License-Identifier: Apache-2.0
+
+# Copyright (c) 2025 Linden
+# SPDX-License-Identifier: BSD 3-Clause
+
+# Copyright (c) 2022-2025, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
+# All rights reserved.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+from __future__ import annotations
+
+import os
+
+from isaaclab.assets import ArticulationCfg
+from isaaclab.envs import DirectRLEnvCfg
+from isaaclab.scene import InteractiveSceneCfg
+from isaaclab.sim import PhysxCfg, SimulationCfg
+from isaaclab.utils import configclass
+from isaaclab.actuators import DCMotorCfg
+
+from robot_lab.assets.unitree import UNITREE_A1_CFG
+
+MOTIONS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "motions")
+
+# =============================================================================
+# Robot Configuration Override
+# =============================================================================
+# 复制原始配置
+UNITREE_A1_AMP = UNITREE_A1_CFG.replace(prim_path="/World/envs/env_.*/Robot")
+# 覆盖初始高度，防止出生时碰撞导致 NaN
+UNITREE_A1_AMP.init_state.pos = (0.0, 0.0, 0.42)
+# 必须关闭 merge_fixed_joints，否则 foot link 会被合并到 calf link 中，导致找不到 FL_foot 等 link
+UNITREE_A1_AMP.spawn.merge_fixed_joints = False
+
+
+@configclass
+class HimmyAmpEnvCfg(DirectRLEnvCfg):
+    """
+    Himmy Mark2 AMP 环境配置类。
+    
+    定义了环境的各种参数，包括奖励权重、观测空间、动作空间、仿真参数等。
+    """
+
+    # basic reward (基础奖励权重 - 速度跟踪任务)
+    # 重要：AMP模式下任务奖励会经过 lerp 混合 (lerp=0.3)
+    # 最终奖励 = (1-lerp)*AMP奖励 + lerp*任务奖励
+    # AMP奖励范围约 [0, 2]，任务奖励需要与之匹配
+    # 原始 temp_amp_repo 的 scales 值是 1.5 和 0.5，除以 dt 是为了 IsaacGym 的累积机制
+    # 但在 IsaacLab 中，奖励不需要除以 dt，直接使用原始 scales 值
+    rew_termination = 0.0
+    rew_lin_vel_xy = 1.5    # 线速度跟踪奖励 (原始scales值，不除以dt)
+    rew_ang_vel_z = 0.5     # 角速度跟踪奖励 (原始scales值，不除以dt)
+
+    rew_action_rate = -0.00 # 动作变化率惩罚 (平滑, 减少高频抖动)
+    rew_base_height = 0.0 # 基座高度惩罚 (保持高度)
+    
+    # Regularization rewards (正则化惩罚)
+    rew_action_l2 = 0.0
+    rew_joint_pos_limits = 0.0
+    rew_joint_acc_l2 = 0.0
+    rew_joint_vel_l2 = 0.0
+
+
+    # env (环境参数)
+    episode_length_s = 20.0
+    decimation = 6 # 参考 A1AMPCfg (sim dt=0.005, policy dt=0.03)
+    dt = 0.005
+
+    # commands (指令范围) - 与 temp_amp_repo/a1_amp_config.py 对齐
+    class CommandsCfg:
+        lin_vel_x_range = [-1.0, 1.5
+        ] # m/s (参考: [-1.0, 2.0])
+        lin_vel_y_range = [-0.3, 0.3] # m/s (参考: [-0.3, 0.3])
+        ang_vel_yaw_range = [-1.57, 1.57] # rad/s (参考: [-1.57, 1.57])
+        heading_command = False # 是否使用朝向指令 (暂不使用)
+        resampling_time = 10.0 # 指令重采样时间 (秒)
+
+    commands = CommandsCfg()
+
+    # spaces (空间维度)
+    # 新的观测空间: 
+    # project_gravity(3) + commands(3) + dof_pos(12) + dof_vel(12) + actions(12) = 42
+    # 参考 A1AMPCfg: num_observations = 42 (移除 base_lin_vel, base_ang_vel)
+    num_observations = 42
+    num_actions = 12
+    observation_space = 42 # 保留以防万一
+    action_space = 12      # 保留以防万一
+    state_space = 0
+    num_amp_observations = 1
+    amp_observation_space = 43 # 12+12+3+3+12+1 = 43
+
+    early_termination = True
+    termination_height = 0.15
+
+    # motion_file = os.path.join(MOTIONS_DIR, "datasets/himmy_run.npz") # 动作数据文件路径
+    motion_file = None
+    reference_body = "base" # 参考身体部位 (通常是基座/躯干)
+    reset_strategy = "default" # 重置策略: "default" (初始姿态) 或 "random-start" (随机动作帧)
+
+    # simulation (仿真参数)
+    sim: SimulationCfg = SimulationCfg(
+        dt=dt,
+        render_interval=decimation,
+        physx=PhysxCfg(
+            gpu_found_lost_pairs_capacity=2**21, # GPU 碰撞对容量
+            gpu_total_aggregate_pairs_capacity=2**21,
+        ),
+    )
+    
+    # Debug visualization
+    debug_vis: bool = False # 是否开启调试可视化 (显示速度箭头等)
+
+    # scene (场景参数)
+    scene: InteractiveSceneCfg = InteractiveSceneCfg(num_envs=2048, env_spacing=4.0, replicate_physics=True)
+
+    # robot (机器人资产配置)
+    robot: ArticulationCfg = UNITREE_A1_AMP

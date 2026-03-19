@@ -116,13 +116,18 @@ from isaaclab_tasks.utils.hydra import hydra_task_config
 import robot_lab.tasks  # noqa: F401
 
 class RslRlVecEnvWrapperConcrete(RslRlVecEnvWrapper):
+    def __init__(self, env, unwrap_dict=False, **kwargs):
+        super().__init__(env, **kwargs)
+        self.unwrap_dict = unwrap_dict
+
     def get_privileged_observations(self):
         return None
 
     def get_observations(self):
         obs = super().get_observations()
-        if hasattr(obs, "get") and obs.get("policy") is not None:
-            obs = obs["policy"]
+        if hasattr(self, "unwrap_dict") and self.unwrap_dict:
+            if hasattr(obs, 'keys') and 'policy' in obs.keys():
+                obs = obs['policy']
         return obs
 
     def step(self, actions):
@@ -150,7 +155,13 @@ class RslRlVecEnvWrapperConcrete(RslRlVecEnvWrapper):
         else:
             obs, privileged_obs, rewards, dones = ret[0], ret[1], ret[2], ret[3]
             extras = getattr(self.unwrapped, "extras", {})
-        
+            
+        if hasattr(self, "unwrap_dict") and self.unwrap_dict:
+            if hasattr(obs, 'keys') and 'policy' in obs.keys():
+                obs = obs['policy']
+            if privileged_obs is not None and hasattr(privileged_obs, 'keys') and 'critic' in privileged_obs.keys():
+                privileged_obs = privileged_obs['critic']
+                
         # Fix for Gym API return (obs, rew, term, trunc, info) being interpreted as RSL-RL
         # If privileged_obs is actually rewards (shape [4096]), fix it.
         # (Already handled above)
@@ -190,13 +201,10 @@ class RslRlVecEnvWrapperConcrete(RslRlVecEnvWrapper):
             if isinstance(dones, dict):
                  # Still a dict? Try to construct a zero tensor if we can't find it
                  # This is a hack.
-                 dones = torch.zeros(obs.shape[0], device=obs.device, dtype=torch.bool)
-
-        if hasattr(obs, "get") and obs.get("policy") is not None:
-            obs = obs["policy"]
-            
+                 dones = torch.zeros(obs.shape[0] if isinstance(obs, torch.Tensor) else obs["policy"].shape[0], device=obs.device if isinstance(obs, torch.Tensor) else obs["policy"].device, dtype=torch.bool)
+                 
         reset_env_ids = (dones > 0).nonzero(as_tuple=False).flatten()
-        
+
         # Try to get terminal amp states from extras, or fallback to current amp_obs
         # If extras is empty, check if dones was a dict and contained amp_obs
         if not extras and isinstance(ret[3], dict) and "amp_obs" in ret[3]:
@@ -358,7 +366,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         env = gym.wrappers.RecordVideo(env, **video_kwargs)
 
     # wrap around environment for rsl-rl
-    env = RslRlVecEnvWrapperConcrete(env, clip_actions=agent_cfg.clip_actions)
+    is_amp = (agent_cfg.class_name == "AMPOnPolicyRunner")
+    env = RslRlVecEnvWrapperConcrete(env, clip_actions=agent_cfg.clip_actions, unwrap_dict=is_amp)
 
     # create runner from rsl-rl
     if agent_cfg.class_name == "OnPolicyRunner":

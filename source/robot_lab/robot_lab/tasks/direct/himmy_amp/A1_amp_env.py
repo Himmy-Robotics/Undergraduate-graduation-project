@@ -56,14 +56,8 @@ class A1AmpEnv(DirectRLEnv):
         # 使用默认关节位置作为偏移
         self.action_offset = self.robot.data.default_joint_pos[0].clone()
         
-        # 设置动作缩放
-        # Hip joints: 0.15, Others: 0.25
-        self.action_scale = torch.ones_like(self.action_offset) * 0.25
-        
-        for joint_name in self.robot.data.joint_names:
-            if "hip_joint" in joint_name:
-                idx = self.robot.data.joint_names.index(joint_name)
-                self.action_scale[idx] = 0.15
+        # 设置动作缩放 (与 a1_amp_jump 保持一致: 0.75)
+        self.action_scale = torch.ones_like(self.action_offset) * 0.75
 
         # 定义关键身体部位名称 (用于计算模仿奖励和观测)
         # 对于四足机器人，通常关注四个脚的位置

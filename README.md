@@ -168,9 +168,10 @@ python scripts/reinforcement_learning/rsl_rl/play.py --task=RobotLab-Isaac-Veloc
 nvidia-smi
 
 # 查看tersorboard
-tensorboard --logdir=/data/zmli/Undergraduate-graduation-project/logs/rsl_rl/a1_amp --port 6007
 
 tensorboard --logdir=/workspace/Undergraduate-graduation-project/logs/rsl_rl/a1_amp --port 6007
+
+tensorboard --logdir=/workspace/Undergraduate-graduation-project/logs/rsl_rl --port 6007
 
 # 可视化AMP运动轨迹
 python scripts/tools/visualize_amp_motion_simple.py --motion_file pace1.txt
@@ -206,8 +207,12 @@ cd /data/zmli/Fast-Quadruped && conda activate isaac-lab && python scripts/tools
 # AMP
 
 #  training
-python scripts/reinforcement_learning/rsl_rl/train.py --task RobotLab-Isaac-Himmy-AMP-Direct-v0 --headless --run_name=
-
+# AMP
+/workspace/isaaclab/_isaac_sim/python.sh scripts/reinforcement_learning/rsl_rl/train.py \
+    --task=RobotLab-Isaac-A1-AMP-Direct-v0 --headless --run_name=curri_same 
+# 传统RL
+/workspace/isaaclab/_isaac_sim/python.sh scripts/reinforcement_learning/rsl_rl/train.py \
+    --task=RobotLab-Isaac-Velocity-Flat-Unitree-A1-v0 --headless --run_name=a1_gallop_func_same_to_a1
 
 
 # play and video
@@ -215,14 +220,9 @@ python scripts/reinforcement_learning/rsl_rl/play.py --task=RobotLab-Isaac-Himmy
 
 python scripts/reinforcement_learning/rsl_rl/play.py --task=RobotLab-Isaac-Himmy-AMP-Direct-v0 --headless --load_run 2026-01-05_11-13-30_himmy_amp_simple_obs_test --checkpoint /data/zmli/Fast-Quadruped/logs/rsl_rl/himmy_amp/2026-01-05_11-13-30_himmy_amp_simple_obs_test/model_6600.pt --video --video_length 1000 --num_envs 32 --debug_vis --video_name himmy_simple_obs_test_6600
 
-python scripts/reinforcement_learning/rsl_rl/play.py --task=RobotLab-Isaac-A1-AMP-Direct-v0 --headless --load_run 2026-03-16_11-25-08 --video --video_length 1000 
 
-
-/workspace/isaaclab/_isaac_sim/python.sh scripts/reinforcement_learning/rsl_rl/train.py \
-    --task=RobotLab-Isaac-A1-AMP-Direct-v0 --headless 
+# AMP
+/workspace/isaaclab/isaaclab.sh -p scripts/reinforcement_learning/rsl_rl/play.py --task=RobotLab-Isaac-A1-AMP-Direct-v0 --headless --load_run 2026-03-19_02-18-26_curri_same --video --video_length 500 --debug_vis --num_envs 1
     
-/workspace/isaaclab/_isaac_sim/python.sh scripts/reinforcement_learning/rsl_rl/train.py \
-    --task=RobotLab-Isaac-Velocity-Flat-Run-Himmy-Mark2-v0 --headless 
-    
-
-
+# 传统RL
+/workspace/isaaclab/isaaclab.sh -p scripts/reinforcement_learning/rsl_rl/play.py --task=RobotLab-Isaac-Velocity-Flat-Unitree-A1-v0 --headless --load_run 2026-03-19_02-18-55_a1_gallop_func_same_to_a1 --video --video_length 500 --debug_vis --num_envs 1

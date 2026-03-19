@@ -120,6 +120,8 @@ class ActorCritic(nn.Module):
         return self.distribution.entropy().sum(dim=-1)
 
     def update_distribution(self, observations):
+        if hasattr(observations, 'keys') and 'policy' in observations.keys():
+            observations = observations['policy']
         mean = self.actor(observations)
         std = self.std.to(mean.device)
         self.distribution = Normal(mean, mean*0. + std)
@@ -132,10 +134,17 @@ class ActorCritic(nn.Module):
         return self.distribution.log_prob(actions).sum(dim=-1)
 
     def act_inference(self, observations):
+        if hasattr(observations, 'keys') and 'policy' in observations.keys():
+            observations = observations['policy']
         actions_mean = self.actor(observations)
         return actions_mean
 
     def evaluate(self, critic_observations, **kwargs):
+        if hasattr(critic_observations, 'keys') and 'critic' in critic_observations.keys():
+            critic_observations = critic_observations['critic']
+        # Fallback to policy if critic is not found but it's a dict
+        elif hasattr(critic_observations, 'keys') and 'policy' in critic_observations.keys():
+            critic_observations = critic_observations['policy']
         value = self.critic(critic_observations)
         return value
 
